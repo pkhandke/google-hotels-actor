@@ -25,7 +25,7 @@ Apify.main(async () => {
          const overview = await scrapOverview(page,hotels_links[j]);
          const about = await scrapAbout(page);
          const prices = await scrapPrices(page);
-    
+         console.log(prices);
          let results={...overview,...about,...prices};
          await Apify.pushData(results);
          console.log(`hotel ${j+1} scraped successfully `);
