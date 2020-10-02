@@ -39,25 +39,27 @@ exports.changeMoney = async (page,url) => {
 
 //function pour récupérer les liens de tous les hotels 
 exports.loadHotelsList = async (page,url) => {
-var i;
+var i=0;
 var hotels_links = [];
 
 await page.goto(url,{waitUntil:'load',timeout:0 });
 //await page.waitForSelector('div.zbLWdb',{timeout:0 });
 //faire une boucle pour passer au page suivant , 'div.zbLWdb' est le selecteur de button suivant
 //while(await page.$('div.zbLWdb') !== null){
-    while(await page.evaluate(()=>document.querySelector('div.zbLWdb')) != null ){
-    var links = await page.$$eval("a.PVOOXe", links => links.map(link =>link.href));
-    for(i=0;i<links.length;i++){ //"a.PVOOXe" est le selector qui contient le lien de chaque hotel
-        hotels_links.push(links[i]);
-        
-    } 
-    await page.evaluate(()=>document.querySelector('div.zbLWdb').click());
-    await page.waitFor(5000);
-
-    //await page.click('div.zbLWdb');
-    //await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
-}
+while(await page.evaluate(()=>document.querySelector('div.zbLWdb')) != null ){
+        var links = await page.$$eval("a.PVOOXe", links => links.map(link =>link.href));
+        for(i=0;i<links.length;i++){ //"a.PVOOXe" est le selector qui contient le lien de chaque hotel
+            hotels_links.push(links[i]);
+            
+        } 
+         await page.evaluate(()=>document.querySelector('div.zbLWdb').click());
+         //await page.waitForSelector('div.zbLWdb',{timeout : 0 });
+         await page.waitFor(5000);
+         console.log(`Scraping page ${i+1} ...`);
+        //await page.click('div.zbLWdb');
+        //await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
+    }
+    console.log("End scraping pages");
 //else {return;}
 return hotels_links;
 }
