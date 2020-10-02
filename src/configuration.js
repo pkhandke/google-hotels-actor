@@ -53,8 +53,9 @@ if(await page.$('div.zbLWdb') !== null){
     } 
     
     await page.click('div.zbLWdb');
+    await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
 }
-else return;
+else {return;}
 return hotels_links;
 }
 
