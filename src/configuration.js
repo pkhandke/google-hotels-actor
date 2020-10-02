@@ -45,7 +45,7 @@ var hotels_links = [];
 await page.goto(url,{waitUntil:'load',timeout:0 });
 await page.waitForSelector('div.zbLWdb',{timeout:0 });
 //faire une boucle pour passer au page suivant , 'div.zbLWdb' est le selecteur de button suivant
-if(await page.$('div.zbLWdb') !== null){
+while(await page.$('div.zbLWdb') !== null){
     var links = await page.$$eval("a.PVOOXe", links => links.map(link =>link.href));
     for(i=0;i<links.length;i++){ //"a.PVOOXe" est le selector qui contient le lien de chaque hotel
         hotels_links.push(links[i]);
@@ -53,9 +53,9 @@ if(await page.$('div.zbLWdb') !== null){
     } 
     
     await page.click('div.zbLWdb');
-    await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
+    //await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
 }
-else {return;}
+//else {return;}
 return hotels_links;
 }
 
