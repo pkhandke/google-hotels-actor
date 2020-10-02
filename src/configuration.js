@@ -43,7 +43,7 @@ var i;
 var hotels_links = [];
 
 await page.goto(url,{waitUntil:'load',timeout:0 });
-await page.waitForSelector('div.zbLWdb',{timeout:0 });
+//await page.waitForSelector('div.zbLWdb',{timeout:0 });
 //faire une boucle pour passer au page suivant , 'div.zbLWdb' est le selecteur de button suivant
 while(await page.$('div.zbLWdb') !== null){
     var links = await page.$$eval("a.PVOOXe", links => links.map(link =>link.href));
