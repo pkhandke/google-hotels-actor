@@ -39,9 +39,9 @@ exports.changeMoney = async (page,url) => {
 
 //function pour récupérer les liens de tous les hotels 
 exports.loadHotelsList = async (page,url) => {
-var i=0;
+var i;
 var hotels_links = [];
-
+var k=0;
 await page.goto(url,{waitUntil:'load',timeout:0 });
 //await page.waitForSelector('div.zbLWdb',{timeout:0 });
 //faire une boucle pour passer au page suivant , 'div.zbLWdb' est le selecteur de button suivant
@@ -55,7 +55,7 @@ while(await page.evaluate(()=>document.querySelector('div.zbLWdb')) != null ){
          await page.evaluate(()=>document.querySelector('div.zbLWdb').click());
          //await page.waitForSelector('div.zbLWdb',{timeout : 0 });
          await page.waitFor(5000);
-         console.log(`Scraping page ${i+1} ...`);
+         console.log(`Scraping page ${k+1} ...`);
         //await page.click('div.zbLWdb');
         //await page.waitForNavigation({waitUntil : "networkidle0",timeout:0});
     }
